@@ -1,0 +1,10 @@
+{
+  "name": "advent-of-code-2021",
+  "version": "1.0.0",
+  "description": "My solutions for the 2021 advent of code.",
+  "main": "index.js",
+  "repository": "git@github.com:josephcarey/advent-of-code-2021.git",
+  "author": "josephcarey <joe.carey@mastery.net>",
+  "license": "MIT",
+  "private": false
+}

@@ -71,7 +71,7 @@ export class Map {
     }
 
     countGreaterOrEqual = (number) => this.points.reduce((previous, row) => {
-        return previous + row.reduce((prev, cell) => cell >= number ? prev + 1 : prev)
+        return previous + row.reduce((prev, cell) => cell >= number ? prev + 1 : prev, 0)
     }, 0)
     
 

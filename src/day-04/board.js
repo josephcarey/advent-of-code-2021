@@ -99,8 +99,8 @@ export class Board {
     }
 
     calculateBoard = (lastMarked) => {
-        console.log(`Board ${this.info.name} wins by ${this.info.winCondition}`)
-        this.prettyLog()
+        // console.log(`Board ${this.info.name} wins by ${this.info.winCondition}`)
+        // this.prettyLog()
         const totalUnmarked = this.numbers.reduce((accumulator, row) => {
             return accumulator + row.reduce((acc, cell) => {
                 return acc + (cell.marked ? 0 : cell.number)
@@ -108,7 +108,6 @@ export class Board {
         } ,0)
 
         this.info.score = totalUnmarked * lastMarked
-        console.log(`\tScore: ${totalUnmarked} x ${lastMarked} = ${this.info.score}`)
-        // console.log(this)
+        // console.log(`\tScore: ${totalUnmarked} x ${lastMarked} = ${this.info.score}`)
     }
 }

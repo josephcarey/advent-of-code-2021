@@ -1,4 +1,4 @@
-export const day5ExampleData = [
+export const day05ExampleData = [
     "0,9 -> 5,9",
     "8,0 -> 0,8",
     "9,4 -> 3,4",
@@ -11,7 +11,7 @@ export const day5ExampleData = [
     "5,5 -> 8,2"
 ]
 
-export const day5Data = [
+export const day05Data = [
 "692,826 -> 692,915",
 "914,338 -> 524,728",
 "77,505 -> 77,912",

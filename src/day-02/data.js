@@ -1,4 +1,13 @@
-const data = [
+export const day02ExampleData = [
+    "forward 5",
+    "down 5",
+    "forward 8",
+    "up 3",
+    "down 8",
+    "forward 2"    
+]
+
+export const day02Data = [
     "forward 2",
     "forward 5",
     "forward 5",
@@ -1000,49 +1009,3 @@ const data = [
     "up 3",
     "forward 6"
 ]
-
-const main = () => {
-    console.log('Advent of Code -- Day 02')
-    
-    let position = {x: 0, y: 0}
-    
-    for (const datum of data) {
-        const [command, amount] = datum.split(" ")
-        if(command == "forward") {
-            position.x += Number(amount)
-        } else if (command == "down") {
-            position.y += Number(amount)
-        } else if (command == "up") {
-            position.y -= Number(amount)
-        }  else {
-            console.log('error!')
-        }
-    }
-    console.log('final position: ', JSON.stringify(position))
-    console.log('final distance: ', position.x * position.y)
-    
-}
-
-const part2 = () => {
-    console.log('Advent of Code -- Day 02 Part 2')
-
-    let ship = {position: {x: 0, y: 0}, aim: 0}
-
-    for (const datum of data) {
-        const [command, amount] = datum.split(" ")
-        if(command == "forward") {
-            ship.position.x += Number(amount)
-            ship.position.y += Number(amount) * ship.aim
-        } else if (command == "down") {
-            ship.aim += Number(amount)
-        } else if (command == "up") {
-            ship.aim -= Number(amount)
-        }  else {
-            console.log('error!')
-        }
-    }
-    console.log('final position: ', JSON.stringify(ship))
-    console.log('final distance: ', ship.position.x * ship.position.y)
-}
-
-part2()

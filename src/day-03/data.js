@@ -1,4 +1,19 @@
-const data = [
+export const day03ExampleData = [
+    "00100",
+    "11110",
+    "10110",
+    "10111",
+    "10101",
+    "01111",
+    "00111",
+    "11100",
+    "10000",
+    "11001",
+    "00010",
+    "01010"
+]
+
+export const day03Data = [
     "111010111011",
     "001011110010",
     "000110111100",
@@ -1000,67 +1015,3 @@ const data = [
     "001100100100",
     "011100101000"
 ]
-
-const part1 = () => {
-    console.log('Advent of Code -- Day 03 -- part 3')
-    
-    let finalBits = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    let gammaRate = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    let epsilonRate = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    
-    for (const datum of data) {
-        const workingBits = datum.split("")
-        console.log('workingBits', workingBits)
-        for(let i = 0; i < workingBits.length; i++) {
-            finalBits[i] += Number(workingBits[i])
-        }
-    }
-    
-    const halfway = data.length / 2
-    
-    for(let i = 0; i < finalBits.length; i++) {
-        if(finalBits[i] > halfway) {
-            gammaRate[i] = 1
-        } else {
-            epsilonRate[i] = 1
-        }
-    }
-
-    console.log('finalBits', finalBits)
-    console.log('gammaRate', gammaRate)
-    console.log('gammaRate', parseInt(gammaRate, 2))
-    console.log('epsilonRate', epsilonRate)
-
-    console.log('final distance: ', parseInt(gammaRate.join(''), 2) * parseInt(epsilonRate.join(''), 2))
-    
-}
-
-const getTotalForIndex = (currentNumbers, index) => currentNumbers.reduce((acc, curr) => acc + curr[index], 0)
-const getMoreCommonForIndex = (currentNumbers, index) => (getTotalForIndex(currentNumbers, index) >= (currentNumbers.length / 2)) ? 1 : 0
-const getLessCommonForIndex = (currentNumbers, index) => (getTotalForIndex(currentNumbers, index) >= (currentNumbers.length / 2)) ? 0 : 1
-const filterOutBit = (currentNumbers, index, toFilter) => currentNumbers.filter(numbers => numbers[index] != toFilter)
-
-const part2 = () => {
-    console.log('Advent of Code -- Day 03 Part 2')
-
-    const parsedData = data.map((input) => input.split('').map(number => Number(number)))
-
-    let oxGenData = [...parsedData]
-    let coScrubData = [...parsedData]
-
-    for(let i = 0; i < parsedData[0].length; i++) {
-        oxGenData = oxGenData.length > 1 ? filterOutBit(oxGenData, i, getLessCommonForIndex(oxGenData, i)) : oxGenData
-        coScrubData = coScrubData.length > 1 ? filterOutBit(coScrubData, i, getMoreCommonForIndex(coScrubData, i)) : coScrubData
-    }
-
-    const oxGenInt = parseInt(oxGenData[0].join(''), 2)
-    const coScrubInt = parseInt(coScrubData[0].join(''), 2)
-    
-    console.log(oxGenInt)
-    console.log(coScrubInt)
-    
-    const answer = oxGenInt * coScrubInt
-    console.log('answer: ', answer)
-}
-
-part2()

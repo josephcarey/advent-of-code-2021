@@ -1,7 +1,15 @@
-import {day04} from './day-04/index.js'
-import {day05} from './day-05/index.js'
-import {day06} from './day-06/index.js'
-import {day07} from './day-07/index.js'
+export {day01} from './day-01/index.js'
+export {day02} from './day-02/index.js'
+export {day03} from './day-03/index.js'
+export {day04} from './day-04/index.js'
+export {day05} from './day-05/index.js'
+export {day06} from './day-06/index.js'
+export {day07} from './day-07/index.js'
 
-const answer = day07.part2()
-console.log('answer: ', answer)
+export {day01Data, day01ExampleData} from './day-01/data.js'
+export {day02Data, day02ExampleData} from './day-02/data.js'
+export {day03Data, day03ExampleData} from './day-03/data.js'
+export {day04Data, day04ExampleData} from './day-04/data.js'
+export {day05Data, day05ExampleData} from './day-05/data.js'
+export {day06Data, day06ExampleData} from './day-06/data.js'
+export {day07Data, day07ExampleData} from './day-07/data.js'

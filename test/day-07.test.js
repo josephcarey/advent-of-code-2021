@@ -1,6 +1,5 @@
 import { expect } from 'chai'
-import { day07Data, day07ExampleData } from '../src/day-07/data.js'
-import {day07} from '../src/day-07/index.js'
+import { day07, day07Data, day07ExampleData } from '../src/index.js'
 
 describe('Day 07: The Treachery of Whales', () => {
 

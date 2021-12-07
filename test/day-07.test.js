@@ -4,19 +4,19 @@ import {day07} from '../src/day-07/index.js'
 
 describe('Day 07: The Treachery of Whales', () => {
 
-    it('should find that the best solution uses 37 fuel', () => {
+    it('part 1 - test data - should find that the best solution uses 37 fuel', () => {
         expect(day07.part1(day07ExampleData)).to.equal(37)
     })
 
-    it('should find that the best solution uses 344605 fuel', () => {
+    it('part 1 - real data - should find that the best solution uses 344605 fuel', () => {
         expect(day07.part1(day07Data)).to.equal(344605)
     })
 
-    it('should find that the best solution uses 168 fuel', () => {
+    it('part 2 - test data - should find that the best solution uses 168 fuel', () => {
         expect(day07.part2(day07ExampleData)).to.equal(168)
     })
 
-    it('should find that the best solution uses 93699985 fuel', () => {
+    it('part 2 - real data - should find that the best solution uses 93699985 fuel', () => {
         expect(day07.part2(day07Data)).to.equal(93699985)
     })
 

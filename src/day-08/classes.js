@@ -1,3 +1,5 @@
+import { stringUtils } from "../utils/index.js"
+
 export class Display {
      numberStrings = {
         zero: null,
@@ -38,25 +40,25 @@ export class Display {
         clueStrings = this.getRelevantClueStrings(clueStrings)
 
         // display a
-        this.displayChunks.a = this.filterOutLetters(this.numberStrings.seven, this.numberStrings.one)
+        this.displayChunks.a = stringUtils.filterOut(this.numberStrings.seven, this.numberStrings.one)
 
         // six and nine
-        const bAndD = this.filterOutLetters(this.numberStrings.four, this.numberStrings.one)
-        const possibleSixes = clueStrings.filter(clueString => clueString.length == 6 && this.containsAllOf(clueString, bAndD))
-        this.numberStrings.six = possibleSixes.filter(possibleSix => !this.containsAllOf(possibleSix, this.numberStrings.one)).join()
-        this.numberStrings.nine = possibleSixes.filter(possibleSix => this.containsAllOf(possibleSix, this.numberStrings.one)).join()
+        const bAndD = stringUtils.filterOut(this.numberStrings.four, this.numberStrings.one)
+        const possibleSixes = clueStrings.filter(clueString => clueString.length == 6 && stringUtils.containsAllOf(clueString, bAndD))
+        this.numberStrings.six = possibleSixes.filter(possibleSix => !stringUtils.containsAllOf(possibleSix, this.numberStrings.one)).join()
+        this.numberStrings.nine = possibleSixes.filter(possibleSix => stringUtils.containsAllOf(possibleSix, this.numberStrings.one)).join()
         clueStrings = this.getRelevantClueStrings(clueStrings)
 
         // display c
-        this.displayChunks.c = this.filterOutLetters(this.numberStrings.eight, this.numberStrings.six)
-        this.displayChunks.e = this.filterOutLetters(this.numberStrings.eight, this.numberStrings.nine)
+        this.displayChunks.c = stringUtils.filterOut(this.numberStrings.eight, this.numberStrings.six)
+        this.displayChunks.e = stringUtils.filterOut(this.numberStrings.eight, this.numberStrings.nine)
 
         // five
-        this.numberStrings.five = clueStrings.filter(clueString => clueString.length === 5 && this.containsAllOf(clueString, this.filterOutLetters(this.numberStrings.six, this.displayChunks.e))).join()
+        this.numberStrings.five = clueStrings.filter(clueString => clueString.length === 5 && stringUtils.containsAllOf(clueString, stringUtils.filterOut(this.numberStrings.six, this.displayChunks.e))).join()
         clueStrings = this.getRelevantClueStrings(clueStrings)
         
         // display f
-        this.displayChunks.f = this.filterOutLetters(this.numberStrings.one, this.displayChunks.c)
+        this.displayChunks.f = stringUtils.filterOut(this.numberStrings.one, this.displayChunks.c)
         
         // two
         this.numberStrings.two = clueStrings.filter(clueString => clueString.length === 5 && this.containsNoneOf(clueString, this.displayChunks.f)).join()
@@ -72,7 +74,6 @@ export class Display {
         }
      }
      
-     filterOutLetters = (toRemoveFrom, toRemove) => toRemoveFrom.split("").filter(letter => !toRemove.split("").includes(letter)).join("")
 
      getRelevantClueStrings = (clueStrings) => clueStrings.filter(clueString => {
          return clueString != this.numberStrings.zero && 
@@ -87,15 +88,6 @@ export class Display {
             clueString !== this.numberStrings.nine
      })
 
-     containsAllOf = (incomingClue, stringToCheck) => {
-         for(const letter of stringToCheck.split("")) {
-             if(!incomingClue.includes(letter)) {
-                 return false
-             }
-         }
-         return true
-     }
-
      containsNoneOf = (incomingClue, stringToCheck) => {
          for(const letter of stringToCheck.split("")) {
              if(incomingClue.includes(letter)) {
@@ -108,16 +100,16 @@ export class Display {
      decode = () => {
          let runningString = ""
          for(const numeralString of this.toDecode.split(" ")) {
-            if (this.containsAllOf(numeralString, this.numberStrings.eight)) {runningString += "8"}
-            else if (this.containsAllOf(numeralString, this.numberStrings.nine)) {runningString += "9"}
-            else if (this.containsAllOf(numeralString, this.numberStrings.six)) {runningString += "6"}
-            else if (this.containsAllOf(numeralString, this.numberStrings.zero)) {runningString += "0"}
-            else if (this.containsAllOf(numeralString, this.numberStrings.five)) {runningString += "5"}
-            else if (this.containsAllOf(numeralString, this.numberStrings.three)) {runningString += "3"}
-            else if (this.containsAllOf(numeralString, this.numberStrings.two)) {runningString += "2"}
-            else if (this.containsAllOf(numeralString, this.numberStrings.four)) {runningString += "4"}
-            else if (this.containsAllOf(numeralString, this.numberStrings.seven)) {runningString += "7"}
-            else if (this.containsAllOf(numeralString, this.numberStrings.one)) {runningString += "1"}
+            if (stringUtils.containsAllOf(numeralString, this.numberStrings.eight)) {runningString += "8"}
+            else if (stringUtils.containsAllOf(numeralString, this.numberStrings.nine)) {runningString += "9"}
+            else if (stringUtils.containsAllOf(numeralString, this.numberStrings.six)) {runningString += "6"}
+            else if (stringUtils.containsAllOf(numeralString, this.numberStrings.zero)) {runningString += "0"}
+            else if (stringUtils.containsAllOf(numeralString, this.numberStrings.five)) {runningString += "5"}
+            else if (stringUtils.containsAllOf(numeralString, this.numberStrings.three)) {runningString += "3"}
+            else if (stringUtils.containsAllOf(numeralString, this.numberStrings.two)) {runningString += "2"}
+            else if (stringUtils.containsAllOf(numeralString, this.numberStrings.four)) {runningString += "4"}
+            else if (stringUtils.containsAllOf(numeralString, this.numberStrings.seven)) {runningString += "7"}
+            else if (stringUtils.containsAllOf(numeralString, this.numberStrings.one)) {runningString += "1"}
             
             else {
                 throw new Error(`unfound numeralString: ${numeralString}`)

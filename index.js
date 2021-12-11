@@ -1,5 +1,5 @@
 
-import {day10, day10Data, day10ExampleData} from './src/index.js'
+import {day11, day11Data, day11ExampleData} from './src/index.js'
 
-const answer = day10.part2(day10Data)
+const answer = day11.part2(day11Data)
 console.log('answer: ', answer)

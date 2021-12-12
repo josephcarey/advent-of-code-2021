@@ -32,20 +32,17 @@ class PathFinder {
 
     getPathFindersForNextPossibleSteps = nodes => {
         const currentNode = this.state.path[this.state.path.length - 1]
-        const possiblePaths = nodes.get(currentNode).connections
+        const possiblePaths = nodes.get(currentNode).getConnections().filter(node => nodes.get(node).name !== "start")
         const unvisitedPossiblePaths = this.state.smallCaveExceptionUsed ? possiblePaths.filter(node => nodes.get(node).isLarge || !this.state.path.includes(node)) : possiblePaths
-        const sansStart = unvisitedPossiblePaths.filter(node => nodes.get(node).name !== "start")
         
-        // const unvisitedPossiblePaths = sizeAppropriateCaves.filter(node => !this.state.path.includes(node))
-        if(sansStart.length == 0) {
+        if(unvisitedPossiblePaths.length == 0) {
             this.deadEnd = true
             return []
         }
-        
-        return sansStart.map(nextNode => new PathFinder({
+
+        return unvisitedPossiblePaths.map(nextNode => new PathFinder({
             ...this.state,
             path: [...this.state.path, nextNode],
-            // smallCaveExceptionUsed: true
             smallCaveExceptionUsed: this.state.smallCaveExceptionUsed == true ? true : !nodes.get(nextNode).isLarge && this.state.path.includes(nextNode)
         }))
     }
@@ -75,12 +72,6 @@ const part1 = (incomingData) => {
         foundPaths.push(...pathFinders.filter(pathFinder => pathFinder.state.pathFound))
         deadEnds.push(...pathFinders.filter(pathFinder => pathFinder.state.deadEnd))
         pathFinders = pathFinders.filter(pathFinder => !pathFinder.state.pathFound && !pathFinder.state.deadEnd)
-        // console.log('foundPaths: ', foundPaths.length, 'pathFinders: ', pathFinders.length)
-        // console.log()
-        // console.log('foundPaths: ')
-        // console.log(foundPaths.map(path => path.state.path))
-        // console.log('pathFinders: ')
-        // console.log(pathFinders.map(path => path.state.path))
     }
    
     return foundPaths.length
@@ -107,20 +98,18 @@ const part2 = (incomingData) => {
     let pathFinders = [new PathFinder({path: ['start']})]
 
     while(pathFinders.length > 0) {
-        // for(let i = 0; i < 5; i++) {
         pathFinders = pathFinders.map(pathFinder => pathFinder.getPathFindersForNextPossibleSteps(nodes)).flat()
         foundPaths.push(...pathFinders.filter(pathFinder => pathFinder.state.pathFound))
         deadEnds.push(...pathFinders.filter(pathFinder => pathFinder.state.deadEnd))
         pathFinders = pathFinders.filter(pathFinder => !pathFinder.state.pathFound && !pathFinder.state.deadEnd)
-        // console.log('foundPaths: ', foundPaths.length, 'pathFinders: ', pathFinders.length)
-        console.log()
-        console.log('foundPaths: ')
-        console.log(foundPaths.map(path => path.state.path))
-        console.log('pathFinders: ')
-        console.log(pathFinders.map(path => path.state.path))
+
+        // for fun I also tried a for..of loop that distributed by foundPath / deadEnd / continuing,
+        // and I tried forEach and pushing into each,
+        // and I tried a reduce to an object with three arrays --
+        // all were within computer performance variables of each other, as far as I could tell.
+        // this is my original and I think the clearest (?) so I'm leaving it.
     }
 
-    
     return foundPaths.length
     
 }
